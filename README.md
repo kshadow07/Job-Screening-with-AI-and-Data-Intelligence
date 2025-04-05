@@ -1,24 +1,26 @@
 # AI-Powered Job Screening System
 
-An intelligent recruitment system that uses AI to match job applications with job descriptions through resume parsing and semantic similarity analysis.
+Welcome to the AI-Powered Job Screening System, a cutting-edge recruitment solution designed to revolutionize the hiring process. By leveraging advanced artificial intelligence technologies, this system seamlessly matches job applications with job descriptions, ensuring that the best candidates are highlighted for each role. Our system excels in resume parsing, semantic similarity analysis, and much more, making it an indispensable tool for modern recruiters.
 
 ## Features
 
 - 🤖 AI-powered resume parsing and analysis
 - 📊 Semantic similarity matching between resumes and job descriptions
-- 🔍 Automatic resume summarization
 - 💼 Job description management
 - 📱 Modern React frontend with shadcn-ui
 - 🔒 SQLite database for data persistence
+- 📧 Automatic email notifications
+- 🔍 Semantic embedding for enhanced matching
 
 ## Tech Stack
 
 ### Backend
-- Node.js & Express
+-- Node.js & Express
 - SQLite3 with sqlite driver
 - Ollama AI for text generation and embeddings
 - PDF parsing with pdf-parse
 - UUID for unique identifiers
+- Nodemailer for email notifications
 
 ### Frontend
 - React with TypeScript
@@ -123,7 +125,12 @@ Images-
 ![Screenshot 2025-04-05 114312](https://github.com/user-attachments/assets/cc373fb8-633d-495f-b809-eff190231289)
 
 ![Screenshot 2025-04-05 114332](https://github.com/user-attachments/assets/407a65f6-e4f6-4f6d-8ac0-2b85199d350b)
+
 ![Screenshot 2025-04-05 114349](https://github.com/user-attachments/assets/c48bd835-1cf8-431b-8963-a8a1861e4897)
+
 ![Screenshot 2025-04-05 114421](https://github.com/user-attachments/assets/d679fc08-e480-4174-b99d-f0e1a39fd0ef)
+
 ![Screenshot 2025-04-05 114435](https://github.com/user-attachments/assets/e3d4a772-301a-44c0-a626-0185c2bb9dc3)
+
 ![Screenshot 2025-04-05 114447](https://github.com/user-attachments/assets/33165d2e-7886-4d99-be30-a7bb59af38fb)
+
