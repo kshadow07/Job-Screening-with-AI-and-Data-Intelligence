@@ -1,0 +1,35 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+      - "4000:4000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - OLLAMA_URL=http://localhost:11434/api
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend/ai-recruit-flow-main
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/ai-recruit-flow-main:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
