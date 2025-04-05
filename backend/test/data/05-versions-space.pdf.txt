@@ -1,0 +1,53 @@
+
+
+PDF Summary
+Original file: Kaushik KumarSinha_InternshalaResume (1).pdf
+Generated: 4/3/2025, 12:21:49 PM
+Summary:
+<think>
+Alright, so I need to help summarize this PDF into bullet points focusing on
+key skills, experience, and education. Let me start by reading through the
+content carefully.
+
+First, there's a section about work experience. It says Kaushik is a freelance
+software developer and AI engineer since January 2023. He's self-employed
+and virtual. His projects include developing YouTube summarization tools
+using APIs like Whisper, Gemini, and ChatGPT. He also built real-time apps
+with WebSocket for audio/video processing. Additionally, he designed
+backend solutions with Node.js and Firebase. He led the development of a
+women's safety wearable device with real-time tracking and emergency alerts.
+He also worked on IoT systems using ESP32.
+
+Next is his education: a B.Tech from BIT Sindri starting in 2023. He has a
+senior secondary diploma from St. Mary's English High School with a
+percentage of 94%. Then there are training bootcamps like Google Data
+Analytics, Coursera courses on Python, Flutter, and web development.
+
+Looking at the skills listed: he knows Python, TypeScript, Dart, ReactJS,
+Next.js, Flutter, Node.js, Express.js, Firebase, MongoDB, NLP, Pandas,
+NumPy, Power BI, SQL, ESP32, IoT, Android, algorithms, PostgreSQL, and
+Postman. 
+
+Extracurricular activities include contributing to open-source projects and
+participating in hackathons. He also won an award for a women's safety
+device.
+
+I need to condense all this into 3-5 bullet points each covering skills,
+experience, education, training, and extracurriculars. I should make sure each
+point is clear and concise, focusing on the most relevant aspects without
+going too deep into each section.
+</think>
+
+**Kaushik Kumar Sinha's Summary:**
+
+1. **Freelance Software Developer & AI Engineer:** With over two years of
+experience in AI-powered tools and backend development, Kaushik
+specializes in creating YouTube summarization platforms using APIs like
+Whisper, Gemini, and ChatGPT. He also builds real-time audio/video
+processing apps with Flutter.
+
+2. **AI & IoT Expertise:** Kaushik has developed IoT-based systems,
+including heart rate monitors using ESP32, and led the creation of a women's
+safety wearable device with emergency tracking features.
+
+3. **Technical Skills:** Proficient in Python, TypeScript, JavaScript, ReactJS,
