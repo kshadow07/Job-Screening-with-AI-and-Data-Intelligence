@@ -118,4 +118,12 @@ npm run dev
 - GET `/api/applications` - List applications
 - GET `/api/application/:id` - Get application details
 
-## Docker Configuration
+Images-
+
+![Screenshot 2025-04-05 114312](https://github.com/user-attachments/assets/cc373fb8-633d-495f-b809-eff190231289)
+
+![Screenshot 2025-04-05 114332](https://github.com/user-attachments/assets/407a65f6-e4f6-4f6d-8ac0-2b85199d350b)
+![Screenshot 2025-04-05 114349](https://github.com/user-attachments/assets/c48bd835-1cf8-431b-8963-a8a1861e4897)
+![Screenshot 2025-04-05 114421](https://github.com/user-attachments/assets/d679fc08-e480-4174-b99d-f0e1a39fd0ef)
+![Screenshot 2025-04-05 114435](https://github.com/user-attachments/assets/e3d4a772-301a-44c0-a626-0185c2bb9dc3)
+![Screenshot 2025-04-05 114447](https://github.com/user-attachments/assets/33165d2e-7886-4d99-be30-a7bb59af38fb)
