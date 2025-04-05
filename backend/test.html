@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Submission System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background-color: #ddd;
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+            margin-right: 5px;
+        }
+        .tab.active {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #response {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            display: none;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .apps-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .apps-table th, .apps-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .apps-table th {
+            background-color: #f2f2f2;
+        }
+        .apps-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resume Submission System</h1>
+    
+    <div class="tab-container">
+        <div class="tab active" data-tab="submit">Submit Resume</div>
+        <div class="tab" data-tab="view">View Applications</div>
+    </div>
+    
+    <div id="submit-tab" class="tab-content active">
+        <div class="container">
+            <h2>Apply with Resume</h2>
+            
+            <div class="tab-container">
+                <div class="tab active" data-input-tab="pdf">PDF Upload</div>
+                <div class="tab" data-input-tab="text">Text Resume</div>
+            </div>
+            
+            <div id="pdf-input" class="tab-content active">
+                <form id="pdf-form">
+                    <label for="job-id-pdf">Job ID:</label>
+                    <input type="text" id="job-id-pdf" name="job_id" placeholder="Enter the job ID" required>
+                    
+                    <label for="resume-file">Upload Resume (PDF):</label>
+                    <input type="file" id="resume-file" name="resume" accept=".pdf" required>
+                    
+                    <button type="submit">Submit Application</button>
+                </form>
+            </div>
+            
+            <div id="text-input" class="tab-content">
+                <form id="text-form">
+                    <label for="job-id-text">Job ID:</label>
+                    <input type="text" id="job-id-text" name="job_id" placeholder="Enter the job ID" required>
+                    
+                    <label for="resume-text">Resume Text:</label>
+                    <textarea id="resume-text" name="resume_text" placeholder="Paste your resume text here..." required></textarea>
+                    
+                    <button type="submit">Submit Application</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="loader" id="loader"></div>
+        
+        <pre id="response"></pre>
+    </div>
+    
+    <div id="view-tab" class="tab-content">
+        <div class="container">
+            <h2>All Applications</h2>
+            <button id="load-applications">Load Applications</button>
+            
+            <div id="applications-container">
+                <table class="apps-table" id="applications-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Job ID</th>
+                            <th>Summary</th>
+                            <th>Similarity Score</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applications-list">
+                        <!-- Application data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab[data-tab]').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Main tabs
+                document.querySelectorAll('.tab[data-tab]').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.getElementById(tab.dataset.tab + '-tab').classList.add('active');
+            });
+        });
+        
+        // Input method tab switching
+        document.querySelectorAll('.tab[data-input-tab]').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab[data-input-tab]').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                document.querySelectorAll('#pdf-input, #text-input').forEach(content => content.classList.remove('active'));
+                document.getElementById(tab.dataset.inputTab + '-input').classList.add('active');
+            });
+        });
+        
+        // PDF Form submission
+        document.getElementById('pdf-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const jobId = document.getElementById('job-id-pdf').value;
+            const resumeFile = document.getElementById('resume-file').files[0];
+            
+            if (!jobId || !resumeFile) {
+                alert('Please provide both Job ID and Resume file');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('job_id', jobId);
+            formData.append('resume', resumeFile);
+            
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('response').style.display = 'none';
+            
+            try {
+                const response = await fetch('http://localhost:4000/api/apply', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(result, null, 2);
+                document.getElementById('response').style.display = 'block';
+            } catch (error) {
+                document.getElementById('response').textContent = 'Error: ' + error.message;
+                document.getElementById('response').style.display = 'block';
+            } finally {
+                document.getElementById('loader').style.display = 'none';
+            }
+        });
+        
+        // Text Form submission
+        document.getElementById('text-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const jobId = document.getElementById('job-id-text').value;
+            const resumeText = document.getElementById('resume-text').value;
+            
+            if (!jobId || !resumeText) {
+                alert('Please provide both Job ID and Resume text');
+                return;
+            }
+            
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('response').style.display = 'none';
+            
+            try {
+                const response = await fetch('http://localhost:4000/api/apply-text', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        job_id: jobId,
+                        resume_text: resumeText
+                    })
+                });
+                
+                const result = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(result, null, 2);
+                document.getElementById('response').style.display = 'block';
+            } catch (error) {
+                document.getElementById('response').textContent = 'Error: ' + error.message;
+                document.getElementById('response').style.display = 'block';
+            } finally {
+                document.getElementById('loader').style.display = 'none';
+            }
+        });
+        
+        // Load applications
+        document.getElementById('load-applications').addEventListener('click', async () => {
+            try {
+                const response = await fetch('http://localhost:4000/api/applications');
+                const applications = await response.json();
+                
+                const tableBody = document.getElementById('applications-list');
+                tableBody.innerHTML = '';
+                
+                applications.forEach(app => {
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${app.id.substring(0, 8)}...</td>
+                        <td>${app.job_id}</td>
+                        <td>${app.summary.substring(0, 100)}...</td>
+                        <td>${parseFloat(app.similarity_score).toFixed(2)}</td>
+                        <td>${new Date(app.created_at).toLocaleString()}</td>
+                        <td><button class="view-app" data-id="${app.id}">View</button></td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                });
+                
+                // Add event listeners to view buttons
+                document.querySelectorAll('.view-app').forEach(button => {
+                    button.addEventListener('click', async () => {
+                        const appId = button.dataset.id;
+                        
+                        try {
+                            const response = await fetch(`http://localhost:4000/api/application/${appId}`);
+                            const appData = await response.json();
+                            
+                            document.querySelectorAll('.tab[data-tab]').forEach(t => t.classList.remove('active'));
+                            document.querySelector('.tab[data-tab="submit"]').classList.add('active');
+                            
+                            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                            document.getElementById('submit-tab').classList.add('active');
+                            
+                            document.getElementById('response').textContent = JSON.stringify(appData, null, 2);
+                            document.getElementById('response').style.display = 'block';
+                            
+                        } catch (error) {
+                            alert('Error fetching application details: ' + error.message);
+                        }
+                    });
+                });
+                
+            } catch (error) {
+                alert('Error loading applications: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
